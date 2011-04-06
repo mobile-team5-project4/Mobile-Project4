@@ -1,0 +1,85 @@
+README
+
+Authors:
+
+
+Setup/Installation Procedures:
+1) Create a github.com account
+2) Email me your user name, I will add you to the team
+3) The installation is a multi-step process. You will need
+   both git for your machine and the egit plugin for eclipse.
+4) Install git. I have tested both Mac and Windows 
+   installation instructions, and both work.
+   * Windows: http://help.github.com/win-git-installation/
+   * Mac: http://help.github.com/mac-git-installation/
+   * Linux: http://help.github.com/linux-git-installation/
+5) Generate SSH keys.
+   * Windows: http://help.github.com/msysgit-key-setup/
+   * Mac: http://help.github.com/mac-key-setup/
+   * Linux: http://help.github.com/linux-key-setup/
+6) Set git configuration.
+   * http://help.github.com/git-email-settings/
+7) Download egit plugin. Note - If you want to use
+   git from the command line and feel comfortable
+   memorizing the commands, go for it.
+   * Open eclipse.
+   * Help > Install New Software...
+   * Work with: "--All Available Sites--"
+   * Collaboration > Eclipse EGit (Incubation)
+   * Follow the steps, accept the license, etc...
+8) You should be ready to go from here. I found a great
+   website for basic operation of git, including working
+   with github. 
+   * http://wiki.eclipse.org/EGit/User_Guide#
+
+At this point, you should have access to our team's
+github, if you don't email me asap.
+
+From here, the basic process will be as follows:
+1) Clone the project repo.
+   * The uri can be found on the team github page
+     If you have git/egit installed properly it 
+     should be able to clone without any problems.
+     On windows, I kept getting an "Auth Failed"
+     error. To correct this, inside eclipse:
+     * Preferences > General > Network Connections >
+       SSH2
+     * SSH2 Home should be "something\.ssh", wherever
+       you generated your keys to.
+2) Make updates and add files/folders/resources.
+   * Right click new elements and "Team->Add" them
+     to the repo.
+3) Commit changes to your local repo.
+   * Right click project folder and "Team->Commit"
+4) Push changes to remote repo.
+   * Right click project folder and "Team->Push"
+5) Fetch updates from remote to local.
+   * Right click project folder and "Team->Fetch from..."
+6) Merge local repo and the project folder eclipse sees.
+   * Right click project folder and "Team->Merge"
+7) Create your own branches to modify code on without changing
+   the main/master branch.
+   * Right click project folder and "Team->Branch"
+   * Select the branch you want to create from and 
+     give a new name, a new branch is created.
+   * Checkout will allow you to work on a specific branch.
+8) Reset your local repo to the remote repo
+   * Right click proejct folder and "Team->Reset"
+   
+Testing git/github:
+Clone the github repo, and create your test branch.
+Check out your test branch. Modify this README by adding your
+name and email under authors, and pushing the modified 
+file and your new test branch back.
+
+General Source Control Procedure:
+You will only clone once. Create a personal test branch
+"test_<lastname>". Make sure to "Check out" your personal 
+branch. Make updates, etc... Add the updates. Commit the updates.
+Push your test branch to the remote repo. When you have your 
+remote branch tested and working properly, on github > Request Pull.
+Your changes will be reviewed by the team, then I will merge them into
+the main branch. **Do not merge your own code into the main branch.**
+This is only a requirement because once we start coding, people are likely
+to break things a lot constantly merging with the main branch. So, request
+a pull and we can make sure every one has the latest, working versions.
