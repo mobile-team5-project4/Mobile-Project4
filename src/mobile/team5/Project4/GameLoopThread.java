@@ -29,10 +29,7 @@ public class GameLoopThread extends Thread {
             try {
                 c = _surfaceHolder.lockCanvas(null);
                 synchronized (_surfaceHolder) {
-                	_game.updateState();
-            	    _game.updateInput();
-            	    _game.updateAnimations();
-            	    _game.updateSound();
+            	    _game.updateLogic(); 
                     _game.updateVideo(c);
                 }
             } finally {

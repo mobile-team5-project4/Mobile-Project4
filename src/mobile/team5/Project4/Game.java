@@ -13,9 +13,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 	OnDoubleTapListener {
 	
 	GameLoopThread _thread;
-	Boolean isRunning;
-	Boolean isPaused;
-	float deltaTime;
+	Minigame minigame;
 	
 	GestureDetector gd;
 	
@@ -29,27 +27,12 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 		gd.setOnDoubleTapListener(this);
 	}
 
-	public void updateAnimations() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void updateSound() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void updateInput() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void updateState() {	
-		
+	public void updateLogic() {	
+		minigame.gameLogic();
 	}
 	
 	public void updateVideo(Canvas c) {
-		
+		minigame.gameDraw(c);
 	}
 
 	@Override
