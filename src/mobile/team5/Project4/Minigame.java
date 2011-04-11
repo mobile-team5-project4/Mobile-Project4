@@ -4,18 +4,12 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 public abstract class Minigame {
-	Canvas c;
-	
-	public Minigame(Canvas c)
-	{
-		this.c = c;
-	}
 	
 	abstract public void gameDraw(Canvas c);
 	
 	abstract public Double getScore();
 	
-	abstract public void selectPoint(MotionEvent e);
+	abstract public boolean selectPoint(MotionEvent e);
 	
 	// Will need a series of functions here for each of the gestures
 	// we use during all minigames. The Game class can then call within

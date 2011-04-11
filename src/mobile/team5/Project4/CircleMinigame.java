@@ -21,11 +21,9 @@ public class CircleMinigame extends Minigame {
 	Bitmap reticle;
 
 	public CircleMinigame(Canvas c, Context con) {
-		super(c);
 		Random rand = new Random();
-
-		reticle = BitmapFactory.decodeResource(con.getResources(),
-				R.drawable.squarereticle);
+		
+		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
 
 		int minRad = (int) (c.getWidth() * .25);
 		int maxRad = (int) (c.getWidth() * .5);
@@ -66,10 +64,11 @@ public class CircleMinigame extends Minigame {
 	}
 
 	@Override
-	public void selectPoint(MotionEvent e) {
+	public boolean selectPoint(MotionEvent e) {
 		userPoint.x = e.getX();
 		userPoint.y = e.getY();
 		selected = true;
+		return true;
 	}
 
 }
