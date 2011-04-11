@@ -25,9 +25,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
-		
-		Canvas c = new Canvas();		
-		minigame = new CircleMinigame(c, context);
+			
+		minigame = new CircleMinigame(context, getWidth(), getHeight());
 	}
 
 	public Double getScore() {
