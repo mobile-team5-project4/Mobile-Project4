@@ -22,14 +22,15 @@ public class CircleMinigame extends Minigame {
 
 	public CircleMinigame(Context con, int width, int height) {
 		Random rand = new Random();
-		
-		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
-		
-		int minRad = (int) (c.getWidth() * .25);
-		int maxRad = (int) (c.getWidth() * .5);
+
+		reticle = BitmapFactory.decodeResource(con.getResources(),
+				R.drawable.squarereticle);
+
+		int minRad = (int) (width * .25);
+		int maxRad = (int) (height * .5);
 		int rad = rand.nextInt(maxRad - minRad) + minRad;
 
-		Rect bounds = c.getClipBounds();
+		Rect bounds = new Rect(0, 0, width, height);
 		bounds.bottom -= minRad;
 		bounds.top += minRad;
 		bounds.left += minRad;
