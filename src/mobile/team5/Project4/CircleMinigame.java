@@ -16,26 +16,30 @@ import android.view.MotionEvent;
 public class CircleMinigame extends Minigame {
 	private ShapeDrawable circle;
 	private Point userPoint;
+	private Point centerPoint;
 	boolean selected;
 	Bitmap reticle;
 
 	public CircleMinigame(Canvas c, Context con) {
 		super(c);
 		Random rand = new Random();
-		
-		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
+
+		reticle = BitmapFactory.decodeResource(con.getResources(),
+				R.drawable.squarereticle);
 
 		int minRad = (int) (c.getWidth() * .25);
 		int maxRad = (int) (c.getWidth() * .5);
 		int rad = rand.nextInt(maxRad - minRad) + minRad;
+
 		Rect bounds = c.getClipBounds();
 		bounds.bottom -= minRad;
 		bounds.top += minRad;
 		bounds.left += minRad;
 		bounds.right -= minRad;
 
-		int x = rand.nextInt(bounds.right) + bounds.left;
-		int y = rand.nextInt(bounds.bottom) + bounds.top;
+		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
+		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
+		centerPoint = new Point(x, y);
 
 		OvalShape oval = new OvalShape();
 		// oval.resize(width, height);
@@ -47,16 +51,18 @@ public class CircleMinigame extends Minigame {
 	@Override
 	public void gameDraw(Canvas c) {
 		circle.draw(c);
-		if(selected) {
+		if (selected) {
 			c.drawBitmap(reticle, userPoint.x, userPoint.y, null);
 		}
-
 	}
 
 	@Override
 	public Double getScore() {
-		// TODO Auto-generated method stub
-		return null;
+		double x = userPoint.x - centerPoint.x;
+		double y = userPoint.y - centerPoint.y;
+		double dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+		return dist;
 	}
 
 	@Override
