@@ -2,7 +2,7 @@ package mobile.team5.Project4;
 
 import android.graphics.Canvas;
 
-public class Minigame {
+public abstract class Minigame {
 	public Minigame() {
 		
 	}
