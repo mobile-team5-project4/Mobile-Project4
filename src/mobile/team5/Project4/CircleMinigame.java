@@ -20,7 +20,6 @@ public class CircleMinigame extends Minigame {
 	Bitmap reticle;
 
 	public CircleMinigame(Canvas c, Context con) {
-		super(c);
 		Random rand = new Random();
 		
 		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
@@ -36,6 +35,7 @@ public class CircleMinigame extends Minigame {
 
 		int x = rand.nextInt(bounds.right) + bounds.left;
 		int y = rand.nextInt(bounds.bottom) + bounds.top;
+
 
 		OvalShape oval = new OvalShape();
 		// oval.resize(width, height);
@@ -60,10 +60,11 @@ public class CircleMinigame extends Minigame {
 	}
 
 	@Override
-	public void selectPoint(MotionEvent e) {
+	public boolean selectPoint(MotionEvent e) {
 		userPoint.x = e.getX();
 		userPoint.y = e.getY();
 		selected = true;
+		return true;
 	}
 
 }
