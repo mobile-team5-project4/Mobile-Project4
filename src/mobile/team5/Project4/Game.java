@@ -9,28 +9,28 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestureListener,
-	OnDoubleTapListener {
-	
+public class Game extends SurfaceView implements SurfaceHolder.Callback,
+		OnGestureListener, OnDoubleTapListener {
+
 	GameLoopThread _thread;
 	Minigame minigame;
-	
+
 	GestureDetector gd;
-	
+
 	public Game(Context context) {
 		super(context);
 		getHolder().addCallback(this);
-        _thread = new GameLoopThread(getHolder(), this);
-        setFocusable(true);
-        
+		_thread = new GameLoopThread(getHolder(), this);
+		setFocusable(true);
+
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
 	}
 
-	public void updateLogic() {	
-		minigame.gameLogic();
+	public Double getScore() {
+		return minigame.getScore();
 	}
-	
+
 	public void updateVideo(Canvas c) {
 		minigame.gameDraw(c);
 	}
@@ -44,22 +44,22 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		_thread.setRunning(true);
-        _thread.start();	
+		_thread.start();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		boolean retry = true;
-        _thread.setRunning(false);
-        while (retry) {
-            try {
-                _thread.join();
-                retry = false;
-            } catch (InterruptedException e) {
-            }
-        }		
+		_thread.setRunning(false);
+		while (retry) {
+			try {
+				_thread.join();
+				retry = false;
+			} catch (InterruptedException e) {
+			}
+		}
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent e) {
 		return gd.onTouchEvent(e);
@@ -80,7 +80,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 	@Override
 	public void onLongPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -93,14 +93,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 	@Override
 	public void onShowPress(MotionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
-		
+
 		return false;
-		
+
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback, OnGestu
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-			
+
 		return false;
 	}
 }

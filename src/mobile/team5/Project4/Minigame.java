@@ -3,17 +3,14 @@ package mobile.team5.Project4;
 import android.graphics.Canvas;
 
 public abstract class Minigame {
-	public Minigame() {
+	public Minigame()
+	{
 		
 	}
 	
-	public void gameLogic() {
-		
-	}
+	abstract public void gameDraw(Canvas c);
 	
-	public void gameDraw(Canvas c) {
-		
-	}
+	abstract public Double getScore();
 	
 	// Will need a series of functions here for each of the gestures
 	// we use during all minigames. The Game class can then call within
