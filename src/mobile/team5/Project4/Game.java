@@ -14,18 +14,22 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	GameLoopThread _thread;
 	Minigame minigame;
+	Context context;
 
 	GestureDetector gd;
 
-	public Game(Context context) {
-		super(context);
+	public Game(Context con) {
+		super(con);
 		getHolder().addCallback(this);
 		_thread = new GameLoopThread(getHolder(), this);
 		setFocusable(true);
 
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
-			
+		context = con;
+	}
+	
+	public void init() {
 		minigame = new CircleMinigame(context, getWidth(), getHeight());
 	}
 
@@ -45,6 +49,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
+		init();
 		_thread.setRunning(true);
 		_thread.start();
 	}
