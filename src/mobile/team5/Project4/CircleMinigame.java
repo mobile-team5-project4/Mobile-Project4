@@ -2,17 +2,28 @@ package mobile.team5.Project4;
 
 import java.util.Random;
 
+import mobile.team5.Project4.R;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.view.MotionEvent;
 
 public class CircleMinigame extends Minigame {
 	private ShapeDrawable circle;
+	private Point userPoint;
+	boolean selected;
+	Bitmap reticle;
 
-	public CircleMinigame(Canvas c) {
+	public CircleMinigame(Canvas c, Context con) {
 		super(c);
 		Random rand = new Random();
+		
+		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
 
 		int minRad = (int) (c.getWidth() * .25);
 		int maxRad = (int) (c.getWidth() * .5);
@@ -31,12 +42,14 @@ public class CircleMinigame extends Minigame {
 
 		circle = new ShapeDrawable(oval);
 		circle.setBounds(x - rad, y + rad, x + rad, y - rad);
-		circle.draw(c);
 	}
 
 	@Override
 	public void gameDraw(Canvas c) {
-		// TODO Auto-generated method stub
+		circle.draw(c);
+		if(selected) {
+			c.drawBitmap(reticle, userPoint.x, userPoint.y, null);
+		}
 
 	}
 
@@ -44,6 +57,13 @@ public class CircleMinigame extends Minigame {
 	public Double getScore() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void selectPoint(MotionEvent e) {
+		userPoint.x = e.getX();
+		userPoint.y = e.getY();
+		selected = true;
 	}
 
 }
