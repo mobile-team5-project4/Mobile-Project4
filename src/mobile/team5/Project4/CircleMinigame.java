@@ -19,11 +19,11 @@ public class CircleMinigame extends Minigame {
 	boolean selected;
 	Bitmap reticle;
 
-	public CircleMinigame(Canvas c, Context con) {
+	public CircleMinigame(Context con, int width, int height) {
 		Random rand = new Random();
 		
 		reticle = BitmapFactory.decodeResource(con.getResources(), R.drawable.squarereticle);
-
+		
 		int minRad = (int) (c.getWidth() * .25);
 		int maxRad = (int) (c.getWidth() * .5);
 		int rad = rand.nextInt(maxRad - minRad) + minRad;
