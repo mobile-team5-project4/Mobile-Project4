@@ -11,7 +11,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class CircleMinigame extends Minigame {
@@ -24,9 +23,7 @@ public class CircleMinigame extends Minigame {
 	public CircleMinigame(Context con, int width, int height) {
 		Random rand = new Random();
 		
-		String s = new String();
-		s = "Width: " + width + " Height: " + height;
-		Log.d("Game", s);
+		userPoint = new Point(0, 0);
 
 		reticle = BitmapFactory.decodeResource(con.getResources(),
 				R.drawable.squarereticle);
@@ -46,7 +43,7 @@ public class CircleMinigame extends Minigame {
 		centerPoint = new Point(x, y);
 
 		OvalShape oval = new OvalShape();
-		// oval.resize(width, height);
+		oval.resize(width, height);
 
 		circle = new ShapeDrawable(oval);
 		circle.setBounds(x - rad, y + rad, x + rad, y - rad);

@@ -74,6 +74,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDown(MotionEvent e) {
+		minigame.selectPoint(e);
 		return true;
 	}
 

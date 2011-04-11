@@ -1,6 +1,7 @@
 package mobile.team5.Project4;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.SurfaceHolder;
 
 public class GameLoopThread extends Thread {
@@ -29,6 +30,7 @@ public class GameLoopThread extends Thread {
             try {
                 c = _surfaceHolder.lockCanvas(null);
                 synchronized (_surfaceHolder) {
+                	c.drawColor(Color.WHITE);
             	    //_game.updateLogic(); 
                     _game.updateVideo(c);
                 }
