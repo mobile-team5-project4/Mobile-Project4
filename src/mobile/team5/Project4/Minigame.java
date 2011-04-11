@@ -3,9 +3,11 @@ package mobile.team5.Project4;
 import android.graphics.Canvas;
 
 public abstract class Minigame {
-	public Minigame()
+	Canvas c;
+	
+	public Minigame(Canvas c)
 	{
-		
+		this.c = c;
 	}
 	
 	abstract public void gameDraw(Canvas c);
