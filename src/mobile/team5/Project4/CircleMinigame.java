@@ -48,7 +48,9 @@ public class CircleMinigame extends Minigame {
 
 		circle = new ShapeDrawable(oval);
 		circle.setBounds(x - rad, y - rad, x + rad, y + rad);
-		circle.getPaint().setStyle(Paint.Style.STROKE);
+		Paint p = circle.getPaint();
+		p.setStyle(Paint.Style.STROKE);
+		p.setStrokeWidth(2.0f);
 	}
 
 	@Override
