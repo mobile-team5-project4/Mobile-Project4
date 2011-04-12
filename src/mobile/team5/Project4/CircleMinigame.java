@@ -21,12 +21,13 @@ public class CircleMinigame extends Minigame {
 	private Point centerPoint;
 	boolean selected;
 	Bitmap reticle;
+	int width, height;
 
-	public CircleMinigame(Context con, int width, int height) {
+	public CircleMinigame(Context con, int w, int h) {
 		Random rand = new Random();
 
-		userPoint = new Point(0, 0);
-
+		width = w;
+		height = h;
 		reticle = BitmapFactory.decodeResource(con.getResources(),
 				R.drawable.squarereticle);
 
@@ -59,7 +60,7 @@ public class CircleMinigame extends Minigame {
 	public void gameDraw(Canvas c) {
 		circle.draw(c);
 		if (selected) {
-			c.drawBitmap(reticle, userPoint.x, userPoint.y, null);
+			c.drawBitmap(reticle, userPoint.x - (reticle.getWidth() / 2), userPoint.y - (reticle.getHeight() / 2), null);
 		}
 	}
 
@@ -74,9 +75,13 @@ public class CircleMinigame extends Minigame {
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		userPoint.x = e.getX();
-		userPoint.y = e.getY();
-		selected = true;
+		if(userPoint != null) {
+			userPoint.x = e.getX();
+			userPoint.y = e.getY();
+		} else {
+			userPoint = new Point(e.getX(), e.getY());
+			selected = true;
+		}
 		return true;
 	}
 
@@ -88,8 +93,21 @@ public class CircleMinigame extends Minigame {
 	}
 
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-		userPoint.x -= dx;
-		userPoint.y -= dy;
+		if(userPoint != null) {
+			userPoint.x -= dx;
+			userPoint.y -= dy;
+			if(userPoint.x < 0)
+				userPoint.x = 0;
+			else if(userPoint.x > width)
+				userPoint.x = width;
+			if(userPoint.y < 0)
+				userPoint.y = 0;
+			else if(userPoint.y > height)
+				userPoint.y = height;
+		} else {
+			userPoint = new Point(e1.getX(), e1.getY());
+			selected = true;
+		}
 		return true;
 	}
 }
