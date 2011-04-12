@@ -46,7 +46,7 @@ public class CircleMinigame extends Minigame {
 		oval.resize(width, height);
 
 		circle = new ShapeDrawable(oval);
-		circle.setBounds(x - rad, y + rad, x + rad, y - rad);
+		circle.setBounds(x - rad, y - rad, x + rad, y + rad);
 	}
 
 	@Override
