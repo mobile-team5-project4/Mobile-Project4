@@ -44,11 +44,11 @@ public class RightAngleMinigame extends Minigame {
 	public void gameDraw(Canvas c) {
 		// TODO Auto-generated method stub
 		c.drawLine(startLine[0].x, startLine[0].y, startLine[1].x,
-				startLine[1].y, new Paint());
+				startLine[1].y, new Paint(Paint.ANTI_ALIAS_FLAG));
 
 		if (pointSet)
 			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
-					currentLine[1].y, new Paint());
+					currentLine[1].y, new Paint(Paint.ANTI_ALIAS_FLAG));
 	}
 
 	@Override
