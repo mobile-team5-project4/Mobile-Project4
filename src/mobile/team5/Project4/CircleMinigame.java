@@ -24,7 +24,7 @@ public class CircleMinigame extends Minigame {
 
 	public CircleMinigame(Context con, int width, int height) {
 		Random rand = new Random();
-		
+
 		userPoint = new Point(0, 0);
 
 		reticle = BitmapFactory.decodeResource(con.getResources(),
@@ -42,7 +42,7 @@ public class CircleMinigame extends Minigame {
 
 		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
 		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
-		
+
 		centerPoint = new Point(x, y);
 
 		OvalShape oval = new OvalShape();
@@ -74,23 +74,22 @@ public class CircleMinigame extends Minigame {
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		userPoint.x = e.getX() - 50;
-		userPoint.y = e.getY() - 50;
+		userPoint.x = e.getX();
+		userPoint.y = e.getY();
 		selected = true;
 		return true;
 	}
-	
+
 	public boolean onDoubleTap(MotionEvent e) {
 		double score = getScore();
 		String s = "Score = " + score;
 		Log.d("Game", s);
 		return true;
 	}
-	
+
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-		userPoint.x = e2.getX() - 50;
-		userPoint.y = e2.getY() - 50;
+		userPoint.x -= dx;
+		userPoint.y -= dy;
 		return true;
 	}
-
 }
