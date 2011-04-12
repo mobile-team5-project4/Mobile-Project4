@@ -90,6 +90,7 @@ public class CircleMinigame extends Minigame {
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
 		userPoint.x = e2.getX() - 50;
 		userPoint.y = e2.getY() - 50;
+		selected = true;
 		return true;
 	}
 
