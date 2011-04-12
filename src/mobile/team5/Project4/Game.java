@@ -95,6 +95,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
+		minigame.onSingleTapConfirmed(e2);
 		minigame.onScroll(e1, e2, distanceX, distanceY);
 		return false;
 	}

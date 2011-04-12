@@ -31,14 +31,14 @@ public class CircleMinigame extends Minigame {
 				R.drawable.squarereticle);
 
 		int minRad = (int) (width * .25);
-		int maxRad = (int) (height * .5);
+		int maxRad = (int) (width * .5);
 		int rad = rand.nextInt(maxRad - minRad) + minRad;
 
 		Rect bounds = new Rect(0, 0, width, height);
-		bounds.bottom -= minRad;
-		bounds.top += minRad;
-		bounds.left += minRad;
-		bounds.right -= minRad;
+		bounds.bottom -= rad;
+		bounds.top += rad;
+		bounds.left += rad;
+		bounds.right -= rad;
 
 		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
 		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
@@ -74,8 +74,8 @@ public class CircleMinigame extends Minigame {
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		userPoint.x = e.getX();
-		userPoint.y = e.getY();
+		userPoint.x = e.getX() - 50;
+		userPoint.y = e.getY() - 50;
 		selected = true;
 		return true;
 	}
@@ -88,8 +88,8 @@ public class CircleMinigame extends Minigame {
 	}
 	
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-		userPoint.x = e2.getX();
-		userPoint.y = e2.getY();
+		userPoint.x = e2.getX() - 50;
+		userPoint.y = e2.getY() - 50;
 		return true;
 	}
 
