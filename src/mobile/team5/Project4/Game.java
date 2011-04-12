@@ -2,6 +2,7 @@ package mobile.team5.Project4;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -44,6 +45,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
+		Log.d("Game", "changed.");
 		// TODO Auto-generated method stub
 	}
 

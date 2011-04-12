@@ -5,8 +5,9 @@ public class Point {
 	float x;
 	float y;
 	
-	Point(int X, int Y) {
-		
+	Point(float X, float Y) {
+		x = X;
+		y = Y;
 	}
 	
 	Point(Point p) {

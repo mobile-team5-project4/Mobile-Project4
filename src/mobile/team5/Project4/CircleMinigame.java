@@ -42,6 +42,7 @@ public class CircleMinigame extends Minigame {
 
 		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
 		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
+		
 		centerPoint = new Point(x, y);
 
 		OvalShape oval = new OvalShape();
