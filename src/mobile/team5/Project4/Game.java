@@ -74,7 +74,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDown(MotionEvent e) {
-		minigame.selectPoint(e);
+		minigame.onDown(e);
 		return true;
 	}
 
@@ -94,7 +94,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		// TODO Auto-generated method stub
+		minigame.onScroll(e1, e2, distanceX, distanceY);
 		return false;
 	}
 

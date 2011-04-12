@@ -67,10 +67,16 @@ public class CircleMinigame extends Minigame {
 	}
 
 	@Override
-	public boolean selectPoint(MotionEvent e) {
+	public boolean onDown(MotionEvent e) {
 		userPoint.x = e.getX();
 		userPoint.y = e.getY();
 		selected = true;
+		return true;
+	}
+	
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
+		userPoint.x = e2.getX();
+		userPoint.y = e2.getY();
 		return true;
 	}
 

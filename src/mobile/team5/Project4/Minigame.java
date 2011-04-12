@@ -9,7 +9,8 @@ public abstract class Minigame {
 	
 	abstract public Double getScore();
 	
-	abstract public boolean selectPoint(MotionEvent e);
+	abstract public boolean onDown(MotionEvent e);
+	abstract public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy);
 	
 	// Will need a series of functions here for each of the gestures
 	// we use during all minigames. The Game class can then call within
