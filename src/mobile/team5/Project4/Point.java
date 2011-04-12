@@ -2,10 +2,10 @@ package mobile.team5.Project4;
 
 public class Point {
 
-	float x;
-	float y;
+	int x;
+	int y;
 	
-	Point(float X, float Y) {
+	Point(int X, int Y) {
 		x = X;
 		y = Y;
 	}
