@@ -74,7 +74,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDown(MotionEvent e) {
-		minigame.onDown(e);
 		return true;
 	}
 
@@ -125,7 +124,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-
+		minigame.onSingleTapConfirmed(e);
 		return false;
 	}
 }

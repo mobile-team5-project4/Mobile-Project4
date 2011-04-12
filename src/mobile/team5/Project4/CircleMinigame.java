@@ -71,7 +71,7 @@ public class CircleMinigame extends Minigame {
 	}
 
 	@Override
-	public boolean onDown(MotionEvent e) {
+	public boolean onSingleTapConfirmed(MotionEvent e) {
 		userPoint.x = e.getX();
 		userPoint.y = e.getY();
 		selected = true;

@@ -9,7 +9,7 @@ public abstract class Minigame {
 	
 	abstract public Double getScore();
 	
-	abstract public boolean onDown(MotionEvent e);
+	abstract public boolean onSingleTapConfirmed(MotionEvent e);
 	abstract public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy);
 	
 	// Will need a series of functions here for each of the gestures
