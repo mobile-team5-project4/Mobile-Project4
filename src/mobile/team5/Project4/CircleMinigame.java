@@ -1,12 +1,7 @@
 package mobile.team5.Project4;
 
 import java.util.Random;
-
-import mobile.team5.Project4.R;
-
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -21,21 +16,10 @@ public class CircleMinigame extends Minigame {
 	private Point userPoint;
 	private Point centerPoint;
 	private boolean selected, scoreSubmitted = false;
-	private Bitmap reticle, greenReticle;
-	private int width, height;
-	private Context con;
 
-	public CircleMinigame(Context con, int w, int h) {
+	public CircleMinigame(Context con, int width, int height) {
+		super(con, width, height);
 		Random rand = new Random();
-		this.con = con;
-
-		width = w;
-		height = h;
-		reticle = BitmapFactory.decodeResource(con.getResources(),
-				R.drawable.squarereticle);
-
-		greenReticle = BitmapFactory.decodeResource(con.getResources(),
-				R.drawable.greensquarereticle);
 
 		int minRad = (int) (width * .25);
 		int maxRad = (int) (width * .5);

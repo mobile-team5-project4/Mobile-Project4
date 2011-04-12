@@ -29,9 +29,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		gd.setOnDoubleTapListener(this);
 		context = con;
 	}
-	
+
 	public void init() {
-		minigame = new CircleMinigame(context, getWidth(), getHeight());
+		// minigame = new CircleMinigame(context, getWidth(), getHeight());
+		minigame = new RightAngleMinigame(context, getWidth(), getHeight());
 	}
 
 	public Double getScore() {
