@@ -112,7 +112,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		// TODO Auto-generated method stub
+		minigame.onDoubleTap(e);
 		return false;
 	}
 

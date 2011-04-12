@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class CircleMinigame extends Minigame {
@@ -75,6 +76,13 @@ public class CircleMinigame extends Minigame {
 		userPoint.x = e.getX();
 		userPoint.y = e.getY();
 		selected = true;
+		return true;
+	}
+	
+	public boolean onDoubleTap(MotionEvent e) {
+		double score = getScore();
+		String s = "Score = " + score;
+		Log.d("Game", s);
 		return true;
 	}
 	
