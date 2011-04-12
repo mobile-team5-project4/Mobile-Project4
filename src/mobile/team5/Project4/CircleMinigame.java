@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -47,6 +48,7 @@ public class CircleMinigame extends Minigame {
 
 		circle = new ShapeDrawable(oval);
 		circle.setBounds(x - rad, y - rad, x + rad, y + rad);
+		circle.getPaint().setStyle(Paint.Style.STROKE);
 	}
 
 	@Override
