@@ -32,7 +32,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	public void init() {
 		// minigame = new CircleMinigame(context, getWidth(), getHeight());
-		minigame = new RightAngleMinigame(context, getWidth(), getHeight());
+		// minigame = new RightAngleMinigame(context, getWidth(), getHeight());
+		minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
 	}
 
 	public Double getScore() {
