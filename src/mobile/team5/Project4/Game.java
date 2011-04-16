@@ -2,7 +2,6 @@ package mobile.team5.Project4;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -33,7 +32,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	public void init() {
 		// minigame = new CircleMinigame(context, getWidth(), getHeight());
 		// minigame = new RightAngleMinigame(context, getWidth(), getHeight());
-		minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
+		// minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
+		minigame = new TriangleMinigame(context, getWidth(), getHeight());
 	}
 
 	public Double getScore() {
@@ -47,8 +47,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
-		Log.d("Game", "changed.");
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -84,14 +82,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void onLongPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -103,15 +98,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public void onShowPress(MotionEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
-
 		return false;
-
 	}
 
 	@Override
@@ -122,7 +113,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDoubleTapEvent(MotionEvent e) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

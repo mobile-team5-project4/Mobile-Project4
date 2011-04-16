@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 public class RightAngleMinigame extends Minigame {
 	private Point[] startLine;
@@ -42,13 +44,16 @@ public class RightAngleMinigame extends Minigame {
 
 	@Override
 	public void gameDraw(Canvas c) {
-		// TODO Auto-generated method stub
+		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(2.0f);
+
 		c.drawLine(startLine[0].x, startLine[0].y, startLine[1].x,
-				startLine[1].y, new Paint(Paint.ANTI_ALIAS_FLAG));
+				startLine[1].y, paint);
 
 		if (pointSet)
 			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
-					currentLine[1].y, new Paint(Paint.ANTI_ALIAS_FLAG));
+					currentLine[1].y, paint);
 	}
 
 	@Override
@@ -59,7 +64,6 @@ public class RightAngleMinigame extends Minigame {
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		// TODO Auto-generated method stub
 		currentLine[1] = new Point((int) e.getX(), (int) e.getY());
 		pointSet = true;
 
@@ -68,8 +72,11 @@ public class RightAngleMinigame extends Minigame {
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
+		double score = getScore();
+		String s = "Score = " + score;
+		Log.d("Game", s);
+		Toast.makeText(con, s, Toast.LENGTH_SHORT).show();
+		return true;
 	}
 
 	@Override
