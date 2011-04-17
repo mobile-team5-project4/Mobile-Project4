@@ -1,5 +1,10 @@
 package mobile.team5.Project4;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.GestureDetector;
@@ -15,6 +20,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	GameLoopThread _thread;
 	Minigame minigame;
 	Context context;
+	int curGame;
+	Minigame games[];
+	boolean enabled = true;
 
 	GestureDetector gd;
 
@@ -27,21 +35,36 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
 		context = con;
+		games = new Minigame[4];
 	}
 
 	public void init() {
-		// minigame = new CircleMinigame(context, getWidth(), getHeight());
-		// minigame = new RightAngleMinigame(context, getWidth(), getHeight());
-		// minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
-		minigame = new TriangleMinigame(context, getWidth(), getHeight());
+		curGame = 0;
+
+		games[0] = new CircleMinigame(context, getWidth(), getHeight());
+		games[1] = new RightAngleMinigame(context, getWidth(), getHeight());
+		games[2] = new BisectAngleMinigame(context, getWidth(), getHeight());
+		games[3] = new TriangleMinigame(context, getWidth(), getHeight());
+	}
+
+	private void timer() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				curGame++;
+				enabled = true;
+			}
+		}, 5000);
 	}
 
 	public Double getScore() {
-		return minigame.getScore();
+		return games[curGame].getScore();
 	}
 
 	public void updateVideo(Canvas c) {
-		minigame.gameDraw(c);
+		games[curGame].gameDraw(c);
 	}
 
 	@Override
@@ -71,7 +94,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onTouchEvent(MotionEvent e) {
-		return gd.onTouchEvent(e);
+		if (enabled)
+			return gd.onTouchEvent(e);
+		else
+			return true;
 	}
 
 	@Override
@@ -92,7 +118,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		minigame.onScroll(e1, e2, distanceX, distanceY);
+		games[curGame].onScroll(e1, e2, distanceX, distanceY);
 		return false;
 	}
 
@@ -107,7 +133,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		minigame.onDoubleTap(e);
+		games[curGame].onDoubleTap(e);
+		enabled = false;
+		timer();
 		return false;
 	}
 
@@ -118,7 +146,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		minigame.onSingleTapConfirmed(e);
+		games[curGame].onSingleTapConfirmed(e);
 		return false;
 	}
 }

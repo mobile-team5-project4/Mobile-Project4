@@ -52,7 +52,7 @@ public class BisectAngleMinigame extends Minigame {
 		} else {
 			x -= rand.nextInt(maxLen - minLen) + minLen;
 		}
-		
+
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line2[0].x - x, 2))) - line2[0].y);
 		line2[1] = new Point(x, y);
@@ -69,13 +69,13 @@ public class BisectAngleMinigame extends Minigame {
 
 		if (pointSet)
 			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
-					currentLine[1].y, new Paint(Paint.ANTI_ALIAS_FLAG));
+					currentLine[1].y, paint);
 	}
 
 	@Override
 	public Double getScore() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0.0;
 	}
 
 	@Override

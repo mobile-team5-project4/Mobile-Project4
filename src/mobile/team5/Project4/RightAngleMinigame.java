@@ -58,8 +58,14 @@ public class RightAngleMinigame extends Minigame {
 
 	@Override
 	public Double getScore() {
-		// TODO Auto-generated method stub
-		return null;
+		double slope1 = ((double) (startLine[1].y - startLine[0].y))
+				/ (startLine[1].x - startLine[0].x);
+		double slope2 = ((double) (currentLine[1].y - currentLine[0].y))
+				/ (currentLine[1].x - currentLine[0].x);
+
+		double arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
+
+		return (double) Math.round(Math.toDegrees(Math.atan(arcTan)));
 	}
 
 	@Override
