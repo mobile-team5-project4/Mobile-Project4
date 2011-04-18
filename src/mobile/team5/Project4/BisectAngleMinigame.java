@@ -74,7 +74,7 @@ public class BisectAngleMinigame extends Minigame {
 
 	@Override
 	public Double getScore() {
-		// TODO Auto-generated method stub
+		
 		return 0.0;
 	}
 

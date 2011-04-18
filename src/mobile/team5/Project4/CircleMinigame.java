@@ -15,6 +15,7 @@ public class CircleMinigame extends Minigame {
 	private ShapeDrawable circle;
 	private Point userPoint;
 	private Point centerPoint;
+	private int radius;
 	private boolean selected, scoreSubmitted = false;
 
 	public CircleMinigame(Context con, int width, int height) {
@@ -24,6 +25,7 @@ public class CircleMinigame extends Minigame {
 		int minRad = (int) (width * .25);
 		int maxRad = (int) (width * .5);
 		int rad = rand.nextInt(maxRad - minRad) + minRad;
+		radius = rad;
 
 		Rect bounds = new Rect(0, 0, width, height);
 		bounds.bottom -= rad;
@@ -65,6 +67,7 @@ public class CircleMinigame extends Minigame {
 		double x = userPoint.x - centerPoint.x;
 		double y = userPoint.y - centerPoint.y;
 		double dist = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		dist = dist / radius;
 
 		scoreSubmitted = true;
 
