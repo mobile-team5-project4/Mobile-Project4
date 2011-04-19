@@ -10,6 +10,7 @@ import android.graphics.Paint.Align;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class ColorMinigame extends Minigame {
 
 	private boolean mTrackingCenter;
 	private boolean mHighlightCenter;
+	
+	private Random rand;
 
 	ColorMinigame(final Context con, int width, int height) {
 		super(con, width, height);
@@ -41,6 +44,8 @@ public class ColorMinigame extends Minigame {
 		CENTER_X = width / 2;
 		CENTER_Y = width / 2;
 
+		rand = new Random();
+		
 		mColors = new int[] { 0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF,
 				0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
 		Shader s = new SweepGradient(0, 0, mColors, null);
@@ -104,11 +109,6 @@ public class ColorMinigame extends Minigame {
 			mTrackingCenter = inCenter;
 			if (inCenter) {
 				mHighlightCenter = true;
-				Toast.makeText(
-						con,
-						Integer.toString(compare(mCenterPaint.getColor(),
-								mWinColor.getColor())), Toast.LENGTH_SHORT)
-						.show();
 				break;
 			}
 		case MotionEvent.ACTION_MOVE:
@@ -178,21 +178,56 @@ public class ColorMinigame extends Minigame {
 	}
 
 	private int randColor() {
-		Random rand = new Random();
 		Float f = rand.nextFloat();
 		return interpColor(mColors, f);
 	}
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		// TODO Auto-generated method stub
-		return false;
+		double score = getScore();
+		String s = "Score = " + score;
+		Log.d("Game", s);
+		Toast.makeText(con, s, Toast.LENGTH_SHORT).show();
+		return true;
 	}
 
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-		// TODO Auto-generated method stub
-		return false;
+		float x = e2.getX() - CENTER_X;
+		float y = e2.getY() - CENTER_Y;
+		boolean inCenter = java.lang.Math.sqrt(x * x + y * y) <= CENTER_RADIUS;
+
+		switch (e2.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			mTrackingCenter = inCenter;
+			if (inCenter) {
+				mHighlightCenter = true;
+				break;
+			}
+		case MotionEvent.ACTION_MOVE:
+			if (mTrackingCenter) {
+				if (mHighlightCenter != inCenter) {
+					mHighlightCenter = inCenter;
+				}
+			} else {
+				float angle = (float) java.lang.Math.atan2(y, x);
+				// need to turn angle [-PI ... PI] into unit [0....1]
+				float unit = angle / (2 * PI);
+				if (unit < 0) {
+					unit += 1;
+				}
+				mCenterPaint.setColor(interpColor(mColors, unit));
+			}
+			break;
+		case MotionEvent.ACTION_UP:
+			if (mTrackingCenter) {
+				if (inCenter) {
+				}
+				mTrackingCenter = false; // so we draw w/o halo
+			}
+			break;
+		}
+		return true;
 	}
 
 }
