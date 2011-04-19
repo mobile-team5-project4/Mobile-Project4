@@ -35,7 +35,7 @@ public class ColorMinigame extends Minigame {
 
 	private boolean mTrackingCenter;
 	private boolean mHighlightCenter;
-	
+
 	private Random rand;
 
 	ColorMinigame(final Context con, int width, int height) {
@@ -45,7 +45,7 @@ public class ColorMinigame extends Minigame {
 		CENTER_Y = width / 2;
 
 		rand = new Random();
-		
+
 		mColors = new int[] { 0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF,
 				0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };
 		Shader s = new SweepGradient(0, 0, mColors, null);
@@ -139,15 +139,15 @@ public class ColorMinigame extends Minigame {
 
 	private int compare(int chosen, int win) {
 		// TODO Needs Fixing
-		int cRed = (0x00110000 & chosen) >> 8;
-		int wRed = (0x00110000 & win) >> 8;
-		int cGreen = (0x00001100 & chosen) >> 4;
-		int wGreen = (0x00001100 & win) >> 4;
-		int cBlue = (0x00000011 & chosen);
-		int wBlue = (0x00000011 & win);
+		int cRed = (0x00FF0000 & chosen) >> 16;
+		int wRed = (0x00FF0000 & win) >> 16;
+		int cGreen = (0x0000FF00 & chosen) >> 8;
+		int wGreen = (0x0000FF00 & win) >> 8;
+		int cBlue = (0x000000FF & chosen);
+		int wBlue = (0x000000FF & win);
 
-		return Math.abs(cRed - wRed) + Math.abs(cGreen - wGreen)
-				+ Math.abs(cBlue - wBlue);
+		return Math.abs(cRed - wRed) / 255 + Math.abs(cGreen - wGreen) / 255
+				+ Math.abs(cBlue - wBlue) / 255;
 	}
 
 	private int ave(int s, int d, float p) {

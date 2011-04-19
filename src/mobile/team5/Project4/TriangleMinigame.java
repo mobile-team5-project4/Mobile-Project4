@@ -42,33 +42,13 @@ public class TriangleMinigame extends Minigame {
 		ptB = new Point(x, y);
 
 		if (ptB.x < width / 2) {
-			do {
-				x += rand.nextInt(maxLen - minLen) + minLen;
-				if (x < 0)
-					x = 0;
-				else if (x > height)
-					x = height;
-			} while (Math.abs(x - ptA.x) < minLen);
+			x += rand.nextInt(maxLen - minLen) + minLen;
 		} else {
-			do {
-				x -= rand.nextInt(maxLen - minLen) + minLen;
-				if (x < 0)
-					x = 0;
-				else if (x > height)
-					x = height;
-			} while (Math.abs(x - ptA.x) < minLen);
-		}
-		if (ptA.y < height / 2) {
-			y = ptA.y + rand.nextInt(maxLen - minLen) + minLen;
-		} else {
-			y = ptA.y - rand.nextInt(maxLen - minLen) + minLen;
+			x -= rand.nextInt(maxLen - minLen) + minLen;
 		}
 
-		if (y < 0)
-			y = 0;
-		else if (y > height)
-			y = height;
-		
+		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
+				- Math.pow(ptB.x - x, 2))) - ptB.y);
 		ptC = new Point(x, y);
 	}
 

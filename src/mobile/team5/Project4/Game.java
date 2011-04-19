@@ -11,16 +11,19 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		OnGestureListener, OnDoubleTapListener {
-
+	final static private int NUM_GAMES = 5;
+	final static private int NUM_ROUNDS = 2;
 	GameLoopThread _thread;
 	Minigame minigame;
 	Context context;
 	int curGame;
-	Minigame games[];
+	int curRound;
 	boolean enabled = true;
+	Double scores[][] = new Double[NUM_GAMES][NUM_ROUNDS];
 
 	GestureDetector gd;
 
@@ -33,17 +36,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
 		context = con;
-		games = new Minigame[5];
 	}
 
 	public void init() {
 		curGame = 0;
-
-		games[0] = new CircleMinigame(context, getWidth(), getHeight());
-		games[1] = new RightAngleMinigame(context, getWidth(), getHeight());
-		games[2] = new BisectAngleMinigame(context, getWidth(), getHeight());
-		games[3] = new TriangleMinigame(context, getWidth(), getHeight());
-		games[4] = new ColorMinigame(context, getWidth(), getHeight());
+		curRound = 0;
 	}
 
 	private void timer() {
@@ -53,17 +50,62 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 			@Override
 			public void run() {
 				curGame++;
+
+				if (curGame == NUM_GAMES) {
+					curGame = 0;
+					curRound++;
+				}
+
 				enabled = true;
+
+				switchGame();
 			}
 		}, 3000);
 	}
 
+	private void endGame() {
+		Double score = 0.0;
+		for (Double[] game : scores) {
+			Double ave = 0.0;
+
+			for (Double round : game) {
+				ave += round;
+			}
+
+			ave = ave / NUM_ROUNDS;
+			score += ave;
+		}
+
+		Toast.makeText(context, "Your final score is: " + score.toString(),
+				Toast.LENGTH_LONG).show();
+	}
+
+	private void switchGame() {
+		switch (curGame) {
+		case 0:
+			minigame = new CircleMinigame(context, getWidth(), getHeight());
+			break;
+		case 1:
+			minigame = new RightAngleMinigame(context, getWidth(), getHeight());
+			break;
+		case 2:
+			minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
+			break;
+		case 3:
+			minigame = new TriangleMinigame(context, getWidth(), getHeight());
+			break;
+		case 4:
+			minigame = new ColorMinigame(context, getWidth(), getHeight());
+			break;
+		}
+	}
+
 	public Double getScore() {
-		return games[curGame].getScore();
+		return minigame.getScore();
 	}
 
 	public void updateVideo(Canvas c) {
-		games[curGame].gameDraw(c);
+		minigame.gameDraw(c);
 	}
 
 	@Override
@@ -74,6 +116,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		init();
+		switchGame();
 		_thread.setRunning(true);
 		_thread.start();
 	}
@@ -117,7 +160,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		games[curGame].onScroll(e1, e2, distanceX, distanceY);
+		minigame.onScroll(e1, e2, distanceX, distanceY);
 		return false;
 	}
 
@@ -132,9 +175,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		games[curGame].onDoubleTap(e);
+		minigame.onDoubleTap(e);
+		scores[curGame][curRound] = getScore();
 		enabled = false;
-		timer();
+		if (curGame == NUM_GAMES - 1 && curRound == NUM_ROUNDS - 1)
+			endGame();
+		else
+			timer();
 		return false;
 	}
 
@@ -145,7 +192,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
-		games[curGame].onSingleTapConfirmed(e);
+		minigame.onSingleTapConfirmed(e);
 		return false;
 	}
 }
