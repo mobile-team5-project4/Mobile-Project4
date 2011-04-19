@@ -4,6 +4,7 @@ import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
@@ -14,7 +15,10 @@ public class BisectAngleMinigame extends Minigame {
 	private Point[] line1;
 	private Point[] line2;
 	private Point[] currentLine;
+	private Point[] winningLine;
 	private boolean pointSet = false;
+	private boolean submitted = false;
+	double slope1, slope2, winningSlope;
 
 	BisectAngleMinigame(Context con, int width, int height) {
 		super(con, width, height);
@@ -23,6 +27,7 @@ public class BisectAngleMinigame extends Minigame {
 		line1 = new Point[2];
 		line2 = new Point[2];
 		currentLine = new Point[2];
+		winningLine = new Point[2];
 
 		int minLen = (int) (width * .25);
 		int maxLen = (int) (width * .5);
@@ -41,6 +46,7 @@ public class BisectAngleMinigame extends Minigame {
 		line1[0] = joint;
 		line2[0] = joint;
 		currentLine[0] = joint;
+		winningLine[0] = joint;
 
 		x = rand.nextInt(2 * len) - len + x;
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
@@ -56,6 +62,19 @@ public class BisectAngleMinigame extends Minigame {
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line2[0].x - x, 2))) - line2[0].y);
 		line2[1] = new Point(x, y);
+
+		slope1 = ((double) (line1[1].y - line1[0].y))
+				/ (line1[1].x - line1[0].x);
+		slope2 = ((double) (line2[1].y - line2[0].y))
+				/ (line2[1].x - line2[0].x);
+		winningSlope = (slope1 + slope2) / 2;
+
+		if (line1[1].y > line1[0].y)
+			y = winningLine[0].y + len;
+		else
+			y = winningLine[0].y - len;
+		x = (int) ((y - winningLine[0].y) / winningSlope + winningLine[0].x);
+		winningLine[1] = new Point(x, y);
 	}
 
 	@Override
@@ -63,6 +82,7 @@ public class BisectAngleMinigame extends Minigame {
 		Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(2.0f);
+		paint.setColor(Color.BLACK);
 
 		c.drawLine(line1[0].x, line1[0].y, line1[1].x, line1[1].y, paint);
 		c.drawLine(line2[0].x, line2[0].y, line2[1].x, line2[1].y, paint);
@@ -70,25 +90,33 @@ public class BisectAngleMinigame extends Minigame {
 		if (pointSet)
 			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
 					currentLine[1].y, paint);
+
+		if (submitted) {
+			paint.setColor(Color.GREEN);
+			c.drawLine(winningLine[0].x, winningLine[0].y, winningLine[1].x,
+					winningLine[1].y, paint);
+		}
 	}
 
 	@Override
 	public Double getScore() {
 		double slope1 = ((double) (line1[1].y - line1[0].y))
-			/ (line1[1].x - line1[0].x);
+				/ (line1[1].x - line1[0].x);
 		double slope2 = ((double) (currentLine[1].y - currentLine[0].y))
-			/ (currentLine[1].x - currentLine[0].x);
+				/ (currentLine[1].x - currentLine[0].x);
 		double arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
 		double angle1 = Math.abs(Math.toDegrees(Math.atan(arcTan)));
 		slope1 = ((double) (line2[1].y - line2[0].y))
-		/ (line2[1].x - line2[0].x);
+				/ (line2[1].x - line2[0].x);
 		arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
 		double angle2 = Math.abs(Math.toDegrees(Math.atan(arcTan)));
-		
+
 		double difference = Math.abs(angle1 - angle2);
 		difference = difference / (angle1 + angle2);
 		difference = difference * MAX_SCORE;
 		difference = Math.ceil(difference);
+
+		submitted = true;
 		return difference;
 	}
 
