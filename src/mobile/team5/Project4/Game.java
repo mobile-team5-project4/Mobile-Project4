@@ -33,7 +33,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
 		context = con;
-		games = new Minigame[4];
+		games = new Minigame[5];
 	}
 
 	public void init() {
@@ -43,6 +43,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		games[1] = new RightAngleMinigame(context, getWidth(), getHeight());
 		games[2] = new BisectAngleMinigame(context, getWidth(), getHeight());
 		games[3] = new TriangleMinigame(context, getWidth(), getHeight());
+		games[4] = new ColorMinigame(context, getWidth(), getHeight());
 	}
 
 	private void timer() {
@@ -54,7 +55,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 				curGame++;
 				enabled = true;
 			}
-		}, 5000);
+		}, 3000);
 	}
 
 	public Double getScore() {

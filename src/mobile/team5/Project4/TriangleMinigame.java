@@ -84,7 +84,7 @@ public class TriangleMinigame extends Minigame {
 	@Override
 	public Double getScore() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0.0;
 	}
 
 	@Override
