@@ -10,6 +10,8 @@ public abstract class Minigame {
 	protected Bitmap reticle, greenReticle;
 	protected int width, height;
 	protected Context con;
+	
+	static final int MAX_SCORE = 100;
 
 	Minigame(Context con, int width, int height) {
 		this.con = con;

@@ -62,10 +62,11 @@ public class RightAngleMinigame extends Minigame {
 				/ (startLine[1].x - startLine[0].x);
 		double slope2 = ((double) (currentLine[1].y - currentLine[0].y))
 				/ (currentLine[1].x - currentLine[0].x);
-
 		double arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
-
-		return (double) Math.round(Math.toDegrees(Math.atan(arcTan)));
+		double angle = Math.abs(Math.toDegrees(Math.atan(arcTan)));
+		angle = Math.abs(angle - 90) / 90;
+		angle = Math.ceil(angle * MAX_SCORE);
+		return angle;
 	}
 
 	@Override

@@ -74,8 +74,22 @@ public class BisectAngleMinigame extends Minigame {
 
 	@Override
 	public Double getScore() {
+		double slope1 = ((double) (line1[1].y - line1[0].y))
+			/ (line1[1].x - line1[0].x);
+		double slope2 = ((double) (currentLine[1].y - currentLine[0].y))
+			/ (currentLine[1].x - currentLine[0].x);
+		double arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
+		double angle1 = Math.abs(Math.toDegrees(Math.atan(arcTan)));
+		slope1 = ((double) (line2[1].y - line2[0].y))
+		/ (line2[1].x - line2[0].x);
+		arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
+		double angle2 = Math.abs(Math.toDegrees(Math.atan(arcTan)));
 		
-		return 0.0;
+		double difference = Math.abs(angle1 - angle2);
+		difference = difference / (angle1 + angle2);
+		difference = difference * MAX_SCORE;
+		difference = Math.ceil(difference);
+		return difference;
 	}
 
 	@Override
