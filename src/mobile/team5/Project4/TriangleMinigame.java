@@ -152,11 +152,6 @@ public class TriangleMinigame extends Minigame {
 		return new Point(x, y);
 	}
 
-	public double getDistance(Point a, Point b) {
-		double x = a.x - b.x;
-		double y = a.y - b.y;
-		return Math.abs(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-	}
 
 	@Override
 	public String getInstructions() {

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 public abstract class Minigame {
 	protected Bitmap reticle, greenReticle;
@@ -39,6 +38,12 @@ public abstract class Minigame {
 
 	abstract public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx,
 			float dy);
+	
+	public static double getDistance(Point a, Point b) {
+		double x = a.x - b.x;
+		double y = a.y - b.y;
+		return Math.abs(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+	}
 
 	// Will need a series of functions here for each of the gestures
 	// we use during all minigames. The Game class can then call within
