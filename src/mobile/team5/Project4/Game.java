@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		OnGestureListener, OnDoubleTapListener {
-	final static private int NUM_GAMES = 5;
+	final static private int NUM_GAMES = 6;
 	final static private int NUM_ROUNDS = 2;
 	GameLoopThread _thread;
 	Minigame minigame;
@@ -85,9 +85,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 				Toast.LENGTH_LONG).show();
 
 		a.setContentView(new ScoreView(context, scores, new String[] {
-				"Circle \nminigame", "Right angle \nminigame",
-				"Bisect angle \nminigame", "Triangle \nminigame",
-				"Color match \nminigame" }, NUM_ROUNDS));
+				"Circle", "Right Angle",
+				"Bisect", "Triangle",
+				"Color", "Scale" }, NUM_ROUNDS));
 	}
 
 	private void switchGame() {
@@ -110,6 +110,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		case 4:
 			minigame = new ColorMinigame(context, getWidth(), getHeight() - 10);
 			break;
+		case 5:
+			minigame = new ScaleMinigame(context, getWidth(), getHeight() - 10);
+			break;
 		}
 	}
 
@@ -121,7 +124,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		minigame.gameDraw(c);
 
 		Paint paint = new Paint();
-		paint.setTextSize(12);
+		paint.setTextSize(14);
 		paint.setAntiAlias(false);
 		paint.setTypeface(Typeface.SANS_SERIF);
 

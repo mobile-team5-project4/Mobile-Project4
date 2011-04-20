@@ -16,20 +16,23 @@ public class ScoreView extends TableLayout {
 
 		TableRow header = new TableRow(context);
 		TextView tvGame = new TextView(context);
-		tvGame.setText("Game name");
-		tvGame.setTextColor(Color.BLACK);
+		tvGame.setTextSize(12);
+		tvGame.setText("Game");
+		tvGame.setTextColor(Color.BLUE);
 		header.addView(tvGame);
 
 		for (int x = 0; x < numRounds; x++) {
 			TextView tvRound = new TextView(context);
-			tvRound.setText("Round \nnumber " + (x + 1));
-			tvRound.setTextColor(Color.BLACK);
+			tvRound.setTextSize(12);
+			tvRound.setText("Round " + (x + 1));
+			tvRound.setTextColor(Color.BLUE);
 			header.addView(tvRound);
 		}
 
 		TextView tvAves = new TextView(context);
-		tvAves.setText("Game averages");
-		tvAves.setTextColor(Color.BLACK);
+		tvAves.setTextSize(12);
+		tvAves.setText("Average");
+		tvAves.setTextColor(Color.BLUE);
 		header.addView(tvAves);
 
 		addView(header);
@@ -63,6 +66,7 @@ public class ScoreView extends TableLayout {
 			score += ave;
 
 			TextView tvAve = new TextView(context);
+			tvAve.setTextSize(12);
 			tvAve.setText(String.format("%.3f", ave));
 			tvAve.setTextColor(Color.BLACK);
 			newRow.addView(tvAve);
@@ -72,17 +76,20 @@ public class ScoreView extends TableLayout {
 
 		TableRow footer = new TableRow(context);
 		TextView tvTotal = new TextView(context);
-		tvTotal.setText("Total score");
+		tvTotal.setTextSize(12);
+		tvTotal.setText("Total");
 		tvTotal.setTextColor(Color.BLACK);
 		footer.addView(tvTotal);
 
 		for (x = 0; x < numRounds; x++) {
 			TextView tvRound = new TextView(context);
+			tvRound.setTextSize(12);
 			tvRound.setText("");
 			header.addView(tvRound);
 		}
 
 		TextView tvTotalScore = new TextView(context);
+		tvTotalScore.setTextSize(12);
 		tvTotalScore.setText(String.format("%.3f", score));
 		tvTotalScore.setTextColor(Color.BLACK);
 		footer.addView(tvTotalScore);
