@@ -36,7 +36,13 @@ public class CircleMinigame extends Minigame {
 		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
 		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
 
+		int user_x = x + rand.nextInt(rad);
+		int user_y = y + rand.nextInt(rad);
+		
 		centerPoint = new Point(x, y);
+		userPoint = new Point(user_x, user_y);
+		selected = true;
+		
 
 		OvalShape oval = new OvalShape();
 		oval.resize(width, height);
@@ -83,7 +89,7 @@ public class CircleMinigame extends Minigame {
 			selected = true;
 		}
 		return true;
-	}
+	}//asdf
 
 	public boolean onDoubleTap(MotionEvent e) {
 		double score = getScore();

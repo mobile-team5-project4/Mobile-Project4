@@ -52,6 +52,11 @@ public class BisectAngleMinigame extends Minigame {
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line1[0].x - x, 2))) - line1[0].y);
 		line1[1] = new Point(x, y);
+		
+		x = rand.nextInt(2 * len) - len + x;
+		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
+				- Math.pow(line1[0].x - x, 2))) - line1[0].y);
+		currentLine[1] = new Point(x, y);
 
 		if (line1[1].x < width / 2) {
 			x += rand.nextInt(maxLen - minLen) + minLen;
@@ -87,9 +92,10 @@ public class BisectAngleMinigame extends Minigame {
 		c.drawLine(line1[0].x, line1[0].y, line1[1].x, line1[1].y, paint);
 		c.drawLine(line2[0].x, line2[0].y, line2[1].x, line2[1].y, paint);
 
-		if (pointSet)
-			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
-					currentLine[1].y, paint);
+		//if (pointSet)
+		paint.setColor(Color.BLUE);
+		c.drawLine(currentLine[0].x, currentLine[0].y, 
+					currentLine[1].x, currentLine[1].y, paint);
 
 		if (submitted) {
 			paint.setColor(Color.GREEN);

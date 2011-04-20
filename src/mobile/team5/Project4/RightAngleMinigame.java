@@ -46,6 +46,11 @@ public class RightAngleMinigame extends Minigame {
 		y = (int) -(Math.sqrt(Math.pow(len, 2)
 				- Math.pow(startLine[0].x - x, 2)) - startLine[0].y);
 		startLine[1] = new Point(x, y);
+		
+		x = rand.nextInt(2 * len) - len + x;
+		y = (int) -(Math.sqrt(Math.pow(len, 2)
+				- Math.pow(startLine[0].x - x, 2)) - startLine[0].y);
+		currentLine[1] = new Point(x, y);
 
 	}
 
@@ -59,9 +64,10 @@ public class RightAngleMinigame extends Minigame {
 		c.drawLine(startLine[0].x, startLine[0].y, startLine[1].x,
 				startLine[1].y, paint);
 
-		if (pointSet)
-			c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
-					currentLine[1].y, paint);
+		//if (pointSet)
+		paint.setColor(Color.BLUE);
+		c.drawLine(currentLine[0].x, currentLine[0].y, 
+					currentLine[1].x, currentLine[1].y, paint);
 
 		if (submitted) {
 			paint.setColor(Color.GREEN);
@@ -98,7 +104,7 @@ public class RightAngleMinigame extends Minigame {
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
 		currentLine[1] = new Point((int) e.getX(), (int) e.getY());
-		pointSet = true;
+		//pointSet = true;
 
 		return true;
 	}
@@ -125,16 +131,16 @@ public class RightAngleMinigame extends Minigame {
 				currentLine[1].y = 0;
 			else if (currentLine[1].y > height)
 				currentLine[1].y = height;
-		} else {
-			currentLine[1] = new Point((int) e1.getX(), (int) e1.getY());
-			pointSet = true;
-		}
+		} /*else {
+		//	currentLine[1] = new Point((int) e1.getX(), (int) e1.getY());
+		//	pointSet = true;
+		} */
 		return true;
 	}
 
 	@Override
 	public String getInstructions() {
-		return "Form a right triangle.";
+		return "Form a right angle.";
 	}
 
 }
