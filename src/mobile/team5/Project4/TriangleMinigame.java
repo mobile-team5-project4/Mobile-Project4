@@ -4,6 +4,7 @@ import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
@@ -75,6 +76,16 @@ public class TriangleMinigame extends Minigame {
 			y = width;
 
 		ptC = new Point(x, y);
+		
+		int max_y = Math.max(Math.max(ptA.y, ptB.y), ptC.y);
+		int min_y = Math.min(Math.min(ptA.y, ptB.y), ptC.y);
+		int max_x = Math.max(Math.max(ptA.x, ptB.x), ptC.x);
+		int min_x = Math.min(Math.min(ptA.x, ptB.x), ptC.x);
+		int diff_x = max_x - min_x;
+		int diff_y = max_y - min_y;
+		userPoint = new Point(rand.nextInt(diff_x) + min_x, rand.nextInt(diff_y) + min_y);
+		pointSet = true;
+		
 	}
 
 	@Override
@@ -87,6 +98,7 @@ public class TriangleMinigame extends Minigame {
 		c.drawLine(ptA.x, ptA.y, ptC.x, ptC.y, paint);
 
 		if (pointSet) {
+			paint.setColor(Color.BLUE);
 			c.drawBitmap(reticle, userPoint.x - (reticle.getWidth() / 2),
 					userPoint.y - (reticle.getHeight() / 2), null);
 		}

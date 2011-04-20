@@ -57,6 +57,7 @@ public class CircleMinigame extends Minigame {
 	@Override
 	public void gameDraw(Canvas c) {
 		circle.draw(c);
+		
 		if (selected) {
 			c.drawBitmap(reticle, userPoint.x - (reticle.getWidth() / 2),
 					userPoint.y - (reticle.getHeight() / 2), null);
