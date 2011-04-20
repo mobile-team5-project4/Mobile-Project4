@@ -15,7 +15,10 @@ public class TriangleMinigame extends Minigame {
 	private Point ptB;
 	private Point ptC;
 	private boolean pointSet = false;
+	private boolean scoreSubmitted = false;
 	private Point userPoint;
+	private Point centerPoint;
+	private double maxLength;
 
 	public TriangleMinigame(Context con, int width, int height) {
 		super(con, width, height);
@@ -65,12 +68,21 @@ public class TriangleMinigame extends Minigame {
 			c.drawBitmap(reticle, userPoint.x - (reticle.getWidth() / 2),
 					userPoint.y - (reticle.getHeight() / 2), null);
 		}
+		if(scoreSubmitted) {
+			c.drawBitmap(greenReticle, centerPoint.x
+				- (greenReticle.getWidth() / 2), centerPoint.y
+				- (greenReticle.getHeight() / 2), null);
+		}
 	}
 
 	@Override
 	public Double getScore() {
-		// TODO Auto-generated method stub
-		return 0.0;
+		centerPoint = getCenter();
+		double dist = getDistance(centerPoint, userPoint);
+		dist = dist / maxLength;
+		dist = Math.ceil(dist * MAX_SCORE);
+		scoreSubmitted = true;
+		return dist;
 	}
 
 	@Override
@@ -112,5 +124,26 @@ public class TriangleMinigame extends Minigame {
 			pointSet = true;
 		}
 		return true;
+	}
+	
+	public Point getCenter() {
+		double ab = getDistance(ptA, ptB);
+		double bc = getDistance(ptB, ptC);
+		double ca = getDistance(ptC, ptA);
+		if(ab > bc)
+			maxLength = ab;
+		else
+			maxLength = bc;
+		if(ca > maxLength)
+			maxLength = ca;
+		int x = (int)(((bc * ptA.x) + (ca * ptB.x) + (ab * ptC.x)) / (ab + bc + ca));
+		int y = (int)(((bc * ptA.y) + (ca * ptB.y) + (ab * ptC.y)) / (ab + bc + ca));
+		return new Point(x, y);
+	}
+	
+	public double getDistance(Point a, Point b) { 
+		double x = a.x - b.x;
+		double y = a.y - b.y;
+		return Math.abs(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
 	}
 }
