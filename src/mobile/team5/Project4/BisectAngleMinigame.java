@@ -135,7 +135,6 @@ public class BisectAngleMinigame extends Minigame {
 		double difference = Math.abs(angle1 - angle2);
 		difference = difference / (angle1 + angle2);
 		difference = difference * MAX_SCORE;
-		difference = Math.ceil(difference);
 
 		double ab = getDistance(line1[0], line2[1]);
 		double bc = getDistance(line2[1], line2[1]);
