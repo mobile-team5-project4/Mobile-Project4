@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 public abstract class Minigame {
 	protected Bitmap reticle, greenReticle;

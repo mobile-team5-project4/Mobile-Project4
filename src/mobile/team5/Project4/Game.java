@@ -5,6 +5,8 @@ import java.util.TimerTask;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Looper;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
@@ -77,33 +79,31 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 			score += ave;
 		}
 
-		Toast.makeText(_thread.class, "Your final score is: " + score.toString(),
+		Toast.makeText(context, "Your final score is: " + score.toString(),
 				Toast.LENGTH_LONG).show();
 	}
 
 	private void switchGame() {
 		switch (curGame) {
 		case 0:
-			minigame = new CircleMinigame(context, getWidth(), getHeight());
+			minigame = new CircleMinigame(context, getWidth(), getHeight() - 10);
 			break;
 		case 1:
-			minigame = new RightAngleMinigame(context, getWidth(), getHeight());
+			minigame = new RightAngleMinigame(context, getWidth(),
+					getHeight() - 10);
 			break;
 		case 2:
-			minigame = new BisectAngleMinigame(context, getWidth(), getHeight());
+			minigame = new BisectAngleMinigame(context, getWidth(),
+					getHeight() - 10);
 			break;
 		case 3:
-			minigame = new TriangleMinigame(context, getWidth(), getHeight());
+			minigame = new TriangleMinigame(context, getWidth(),
+					getHeight() - 10);
 			break;
 		case 4:
-			minigame = new ColorMinigame(context, getWidth(), getHeight());
+			minigame = new ColorMinigame(context, getWidth(), getHeight() - 10);
 			break;
 		}
-
-		
-		Toast.makeText(context, minigame.getInstructions(), Toast.LENGTH_LONG)
-				.show();
-
 	}
 
 	public Double getScore() {
@@ -112,6 +112,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	public void updateVideo(Canvas c) {
 		minigame.gameDraw(c);
+
+		Paint paint = new Paint();
+		paint.setTextSize(12);
+		paint.setAntiAlias(false);
+		paint.setTypeface(Typeface.SANS_SERIF);
+
+		c.drawText(minigame.getInstructions(), 5, getHeight() - 5, paint);
 	}
 
 	@Override
@@ -184,10 +191,12 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		minigame.onDoubleTap(e);
 		scores[curGame][curRound] = getScore();
 		enabled = false;
+
 		if (curGame == NUM_GAMES - 1 && curRound == NUM_ROUNDS - 1)
 			endGame();
 		else
 			timer();
+
 		return false;
 	}
 
