@@ -3,11 +3,12 @@ package mobile.team5.Project4;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.os.Looper;
+import android.sax.RootElement;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -27,10 +28,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	int curRound;
 	boolean enabled = true;
 	Double scores[][] = new Double[NUM_GAMES][NUM_ROUNDS];
+	Activity a;
 
 	GestureDetector gd;
 
-	public Game(Context con) {
+	public Game(Context con, Activity a) {
 		super(con);
 		getHolder().addCallback(this);
 		_thread = new GameLoopThread(getHolder(), this);
@@ -39,6 +41,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		gd = new GestureDetector(this);
 		gd.setOnDoubleTapListener(this);
 		context = con;
+		this.a = a;
 	}
 
 	public void init() {
@@ -81,6 +84,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 		Toast.makeText(context, "Your final score is: " + score.toString(),
 				Toast.LENGTH_LONG).show();
+
+		a.setContentView(new ScoreView(context, scores, new String[] {
+				"Circle \nminigame", "Right angle \nminigame",
+				"Bisect angle \nminigame", "Triangle \nminigame",
+				"Color match \nminigame" }, NUM_ROUNDS));
 	}
 
 	private void switchGame() {

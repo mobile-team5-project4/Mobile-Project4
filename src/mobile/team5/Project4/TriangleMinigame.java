@@ -44,15 +44,15 @@ public class TriangleMinigame extends Minigame {
 			x = 0;
 		else if (x > width)
 			x = width;
-		
+
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(ptA.x - x, 2))) - ptA.y);
-		
+
 		if (y < 0)
 			y = 0;
 		else if (y > width)
 			y = width;
-		
+
 		ptB = new Point(x, y);
 
 		if (ptB.x < width / 2) {
@@ -61,8 +61,19 @@ public class TriangleMinigame extends Minigame {
 			x -= rand.nextInt(maxLen - minLen) + minLen;
 		}
 
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
+
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(ptB.x - x, 2))) - ptB.y);
+
+		if (y < 0)
+			y = 0;
+		else if (y > width)
+			y = width;
+
 		ptC = new Point(x, y);
 	}
 

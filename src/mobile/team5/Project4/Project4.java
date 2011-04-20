@@ -17,7 +17,7 @@ public class Project4 extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				setContentView(new Game(Project4.this));
+				setContentView(new Game(Project4.this, Project4.this));
 			}
 		});
 	}
