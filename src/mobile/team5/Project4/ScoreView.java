@@ -17,16 +17,19 @@ public class ScoreView extends TableLayout {
 		TableRow header = new TableRow(context);
 		TextView tvGame = new TextView(context);
 		tvGame.setText("Game name");
+		tvGame.setTextColor(Color.BLACK);
 		header.addView(tvGame);
 
 		for (int x = 0; x < numRounds; x++) {
 			TextView tvRound = new TextView(context);
-			tvRound.setText("Round \nnumber " + x);
+			tvRound.setText("Round \nnumber " + (x + 1));
+			tvRound.setTextColor(Color.BLACK);
 			header.addView(tvRound);
 		}
 
 		TextView tvAves = new TextView(context);
-		tvGame.setText("Game averages");
+		tvAves.setText("Game averages");
+		tvAves.setTextColor(Color.BLACK);
 		header.addView(tvAves);
 
 		addView(header);
@@ -39,6 +42,7 @@ public class ScoreView extends TableLayout {
 			TextView newText = new TextView(context);
 			newText.setText(names[x++]);
 			newText.setTextSize(12);
+			newText.setTextColor(Color.BLACK);
 
 			newRow.addView(newText);
 
@@ -47,7 +51,8 @@ public class ScoreView extends TableLayout {
 			for (Double round : game) {
 				TextView tvScore = new TextView(context);
 				tvScore.setText(String.format("%.3f", round));
-				newText.setTextSize(12);
+				tvScore.setTextSize(12);
+				tvScore.setTextColor(Color.BLACK);
 
 				newRow.addView(tvScore);
 
@@ -59,6 +64,7 @@ public class ScoreView extends TableLayout {
 
 			TextView tvAve = new TextView(context);
 			tvAve.setText(String.format("%.3f", ave));
+			tvAve.setTextColor(Color.BLACK);
 			newRow.addView(tvAve);
 
 			addView(newRow);
@@ -66,7 +72,8 @@ public class ScoreView extends TableLayout {
 
 		TableRow footer = new TableRow(context);
 		TextView tvTotal = new TextView(context);
-		tvGame.setText("Total score");
+		tvTotal.setText("Total score");
+		tvTotal.setTextColor(Color.BLACK);
 		footer.addView(tvTotal);
 
 		for (x = 0; x < numRounds; x++) {
@@ -77,6 +84,7 @@ public class ScoreView extends TableLayout {
 
 		TextView tvTotalScore = new TextView(context);
 		tvTotalScore.setText(String.format("%.3f", score));
+		tvTotalScore.setTextColor(Color.BLACK);
 		footer.addView(tvTotalScore);
 
 		addView(footer);
