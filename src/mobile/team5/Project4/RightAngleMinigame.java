@@ -14,7 +14,6 @@ public class RightAngleMinigame extends Minigame {
 	private Point[] startLine;
 	private Point[] currentLine;
 	private Point[] winningLine;
-	private boolean pointSet = false;
 	private boolean submitted = false;
 	private int len;
 

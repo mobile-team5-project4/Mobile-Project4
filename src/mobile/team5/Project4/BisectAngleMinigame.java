@@ -16,7 +16,6 @@ public class BisectAngleMinigame extends Minigame {
 	private Point[] line2;
 	private Point[] currentLine;
 	private Point[] winningLine;
-	private boolean pointSet = false;
 	private boolean submitted = false;
 	double slope1, slope2, winningSlope, maxLength;
 
@@ -160,7 +159,6 @@ public class BisectAngleMinigame extends Minigame {
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
 		currentLine[1] = new Point((int) e.getX(), (int) e.getY());
-		pointSet = true;
 
 		return true;
 	}
@@ -189,7 +187,6 @@ public class BisectAngleMinigame extends Minigame {
 				currentLine[1].y = height;
 		} else {
 			currentLine[1] = new Point((int) e1.getX(), (int) e1.getY());
-			pointSet = true;
 		}
 		return true;
 	}
