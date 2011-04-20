@@ -102,7 +102,7 @@ public class RightAngleMinigame extends Minigame {
 		double arcTan = Math.abs(slope1 - slope2) / (1 + slope1 * slope2);
 		double angle = Math.abs(Math.toDegrees(Math.atan(arcTan)));
 		angle = Math.abs(angle - 90) / 90;
-		angle = Math.ceil(angle * MAX_SCORE);
+		angle = angle * MAX_SCORE;
 
 		slope1 = -1 / slope1;
 

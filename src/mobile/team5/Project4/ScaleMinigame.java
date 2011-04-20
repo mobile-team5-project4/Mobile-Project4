@@ -15,17 +15,19 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 
 public class ScaleMinigame extends Minigame {
-	
+
 	private final int CIRCLE = 0;
 	private final int RECTANGLE = 1;
-	
-	private ShapeDrawable shape, userShape;
+
+	private ShapeDrawable shape, userShape, winningShape;
 	private int shapeType;
 	private Random rand;
+	private boolean selected = false;
+	private int x, y;
 
 	ScaleMinigame(Context con, int width, int height) {
 		super(con, width, height);
-		
+
 		rand = new Random();
 
 		int minRad = (int) (width * .25);
@@ -38,28 +40,28 @@ public class ScaleMinigame extends Minigame {
 		bounds.left += rad;
 		bounds.right -= rad;
 
-		int x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
-		int y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
+		x = rand.nextInt(bounds.right - bounds.left) + bounds.left;
+		y = rand.nextInt(bounds.bottom - bounds.top) + bounds.top;
 
-		switch(rand.nextInt(2)) {
-			case CIRCLE:
-				shapeType = CIRCLE;
-				OvalShape oval = new OvalShape();
-				OvalShape userOval = new OvalShape();
-				oval.resize(width, height);
-				userOval.resize(width, height);
-				shape = new ShapeDrawable(oval);
-				userShape = new ShapeDrawable(userOval); // needs a separate object
-				break;
-			case RECTANGLE:
-				shapeType = RECTANGLE;
-				RectShape rect = new RectShape();
-				rect.resize(width, height);
-				RectShape userRect = new RectShape(); 
-				userRect.resize(width, height);
-				shape = new ShapeDrawable(rect);
-				userShape = new ShapeDrawable(userRect); // needs a separate object
-				break;
+		switch (rand.nextInt(2)) {
+		case CIRCLE:
+			shapeType = CIRCLE;
+			OvalShape oval = new OvalShape();
+			OvalShape userOval = new OvalShape();
+			oval.resize(width, height);
+			userOval.resize(width, height);
+			shape = new ShapeDrawable(oval);
+			userShape = new ShapeDrawable(userOval); // needs a separate object
+			break;
+		case RECTANGLE:
+			shapeType = RECTANGLE;
+			RectShape rect = new RectShape();
+			rect.resize(width, height);
+			RectShape userRect = new RectShape();
+			userRect.resize(width, height);
+			shape = new ShapeDrawable(rect);
+			userShape = new ShapeDrawable(userRect); // needs a separate object
+			break;
 		}
 
 		shape.setBounds(x - rad, y - rad, x + rad, y + rad);
@@ -77,22 +79,59 @@ public class ScaleMinigame extends Minigame {
 	public void gameDraw(Canvas c) {
 		userShape.draw(c);
 		shape.draw(c);
+
+		if (selected)
+			winningShape.draw(c);
 	}
 
 	@Override
 	public Double getScore() {
-		Double area, userArea, score;
-		if(shapeType == CIRCLE) {
+		Double area, userArea, score, winningWidth;
+		if (shapeType == CIRCLE) {
 			area = Math.PI * Math.pow(shape.getShape().getWidth() / 2, 2);
-			userArea = Math.PI * Math.pow(userShape.getShape().getWidth() / 2, 2);
+			userArea = Math.PI
+					* Math.pow(userShape.getShape().getWidth() / 2, 2);
+
+			winningWidth = Math.sqrt(Math.pow(shape.getShape().getWidth() / 2,
+					2) / 2);
+
+			OvalShape winningOval = new OvalShape();
+			winningOval.resize(winningWidth.floatValue(),
+					winningWidth.floatValue());
+			winningShape = new ShapeDrawable(winningOval);
+			winningShape.setBounds(x - winningWidth.intValue(), y
+					- winningWidth.intValue(), x + winningWidth.intValue(), y
+					+ winningWidth.intValue());
+			Paint p = winningShape.getPaint();
+			p.setStyle(Paint.Style.STROKE);
+			p.setStrokeWidth(2.0f);
+			p.setColor(Color.GREEN);
+		} else {
+			area = (double) (shape.getShape().getWidth() * shape.getShape()
+					.getHeight());
+			userArea = (double) (userShape.getShape().getWidth() * userShape
+					.getShape().getHeight());
+
+			winningWidth = Math.sqrt(Math.pow(shape.getShape().getWidth() / 2,
+					2) / 2);
+
+			RectShape winningRect = new RectShape();
+			winningRect.resize(winningWidth.floatValue(),
+					winningWidth.floatValue());
+			winningShape = new ShapeDrawable(winningRect);
+			winningShape.setBounds(x - winningWidth.intValue(), y
+					- winningWidth.intValue(), x + winningWidth.intValue(), y
+					+ winningWidth.intValue());
+			Paint p = winningShape.getPaint();
+			p.setStyle(Paint.Style.STROKE);
+			p.setStrokeWidth(2.0f);
+			p.setColor(Color.GREEN);
 		}
-		else {
-			area = (double) (shape.getShape().getWidth() * shape.getShape().getHeight());
-			userArea = (double) (userShape.getShape().getWidth() * userShape.getShape().getHeight());
-		}
-		score = Math.abs((userArea - area / 2) / (area / 2) ) * MAX_SCORE;
-		if(score > MAX_SCORE)
+		score = Math.abs((userArea - area / 2) / (area / 2)) * MAX_SCORE;
+		if (score > MAX_SCORE)
 			score = (double) MAX_SCORE;
+
+		selected = true;
 		return score;
 	}
 
@@ -117,14 +156,15 @@ public class ScaleMinigame extends Minigame {
 
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx, float dy) {
-		if(e2.getAction() == MotionEvent.ACTION_MOVE) {
+		if (e2.getAction() == MotionEvent.ACTION_MOVE) {
 			int scale = 2;
 			Rect r = userShape.getBounds();
-			if(e2.getX() > e1.getX() || e2.getY() < e1.getY())
+			if (e2.getX() > e1.getX() || e2.getY() < e1.getY())
 				scale *= -1;
-			userShape.setBounds(r.left + scale, r.top + scale, r.right - scale, r.bottom - scale);
+			userShape.setBounds(r.left + scale, r.top + scale, r.right - scale,
+					r.bottom - scale);
 		}
 		return true;
 	}
-	
+
 }

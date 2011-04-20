@@ -76,16 +76,17 @@ public class TriangleMinigame extends Minigame {
 			y = width;
 
 		ptC = new Point(x, y);
-		
+
 		int max_y = Math.max(Math.max(ptA.y, ptB.y), ptC.y);
 		int min_y = Math.min(Math.min(ptA.y, ptB.y), ptC.y);
 		int max_x = Math.max(Math.max(ptA.x, ptB.x), ptC.x);
 		int min_x = Math.min(Math.min(ptA.x, ptB.x), ptC.x);
 		int diff_x = max_x - min_x;
 		int diff_y = max_y - min_y;
-		userPoint = new Point(rand.nextInt(diff_x) + min_x, rand.nextInt(diff_y) + min_y);
+		userPoint = new Point(rand.nextInt(diff_x) + min_x,
+				rand.nextInt(diff_y) + min_y);
 		pointSet = true;
-		
+
 	}
 
 	@Override
@@ -114,7 +115,11 @@ public class TriangleMinigame extends Minigame {
 		centerPoint = getCenter();
 		double dist = getDistance(centerPoint, userPoint);
 		dist = dist / maxLength;
-		dist = Math.ceil(dist * MAX_SCORE);
+		dist = dist * MAX_SCORE;
+
+		if (dist > MAX_SCORE)
+			dist = MAX_SCORE;
+
 		scoreSubmitted = true;
 		return dist;
 	}
@@ -174,7 +179,6 @@ public class TriangleMinigame extends Minigame {
 		int y = (int) (((bc * ptA.y) + (ca * ptB.y) + (ab * ptC.y)) / (ab + bc + ca));
 		return new Point(x, y);
 	}
-
 
 	@Override
 	public String getInstructions() {
