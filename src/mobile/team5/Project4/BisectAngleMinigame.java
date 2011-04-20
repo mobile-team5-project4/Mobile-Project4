@@ -18,7 +18,7 @@ public class BisectAngleMinigame extends Minigame {
 	private Point[] winningLine;
 	private boolean pointSet = false;
 	private boolean submitted = false;
-	double slope1, slope2, winningSlope;
+	double slope1, slope2, winningSlope, maxLength;
 
 	BisectAngleMinigame(Context con, int width, int height) {
 		super(con, width, height);
@@ -115,6 +115,20 @@ public class BisectAngleMinigame extends Minigame {
 		difference = difference / (angle1 + angle2);
 		difference = difference * MAX_SCORE;
 		difference = Math.ceil(difference);
+		
+		double ab = getDistance(line1[0], line2[1]);
+		double bc = getDistance(line2[1], line2[1]);
+		double ca = getDistance(line1[1], line2[0]);
+		if (ab > bc)
+			maxLength = ab;
+		else
+			maxLength = bc;
+		if (ca > maxLength)
+			maxLength = ca;
+		int x = (int) (((bc * line1[0].x) + (ca * line2[1].x) + (ab * line1[1].x)) / (ab + bc + ca));
+		int y = (int) (((bc * line1[0].y) + (ca * line2[1].y) + (ab * line1[1].y)) / (ab + bc + ca));
+		winningLine[1] = new Point(x, y);
+		
 
 		submitted = true;
 		return difference;

@@ -21,7 +21,7 @@ public class ScoreView extends TableLayout {
 
 		for (int x = 0; x < numRounds; x++) {
 			TextView tvRound = new TextView(context);
-			tvRound.setText("Round number " + x);
+			tvRound.setText("Round \nnumber " + x);
 			header.addView(tvRound);
 		}
 
@@ -46,7 +46,7 @@ public class ScoreView extends TableLayout {
 
 			for (Double round : game) {
 				TextView tvScore = new TextView(context);
-				tvScore.setText(round.toString());
+				tvScore.setText(String.format("%.3f", round));
 				newText.setTextSize(12);
 
 				newRow.addView(tvScore);
@@ -58,7 +58,7 @@ public class ScoreView extends TableLayout {
 			score += ave;
 
 			TextView tvAve = new TextView(context);
-			tvAve.setText(ave.toString());
+			tvAve.setText(String.format("%.3f", ave));
 			newRow.addView(tvAve);
 
 			addView(newRow);
@@ -76,7 +76,7 @@ public class ScoreView extends TableLayout {
 		}
 
 		TextView tvTotalScore = new TextView(context);
-		tvTotalScore.setText(score.toString());
+		tvTotalScore.setText(String.format("%.3f", score));
 		footer.addView(tvTotalScore);
 
 		addView(footer);
