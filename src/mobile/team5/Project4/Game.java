@@ -85,10 +85,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 				Toast.LENGTH_LONG).show();
 
 		a.setContentView(new ScoreView(context, scores, new String[] {
-				"Circle", "Right Angle",
-				"Bisect", "Triangle",
-				"Color", "Scale",
-				"Equilateral"}, NUM_ROUNDS));
+				"Circle", "Right Angle", "Bisect", "Triangle", "Color",
+				"Scale", "Equilateral" }, NUM_ROUNDS));
 	}
 
 	private void switchGame() {
@@ -115,7 +113,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 			minigame = new ScaleMinigame(context, getWidth(), getHeight() - 10);
 			break;
 		case 6:
-			minigame = new EquilateralTriangleMinigame(context, getWidth(), getHeight() - 10);
+			minigame = new EquilateralTriangleMinigame(context, getWidth(),
+					getHeight() - 10);
 			break;
 		}
 	}
@@ -202,8 +201,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
-		minigame.onDoubleTap(e);
-		scores[curGame][curRound] = getScore();
+		// minigame.onDoubleTap(e);
+		double score = getScore();
+		Toast.makeText(context, String.format("Score = %.2f", score),
+				Toast.LENGTH_SHORT).show();
+		scores[curGame][curRound] = score;
 		enabled = false;
 
 		if (curGame == NUM_GAMES - 1 && curRound == NUM_ROUNDS - 1)

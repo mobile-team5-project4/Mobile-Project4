@@ -38,11 +38,10 @@ public class CircleMinigame extends Minigame {
 
 		int user_x = x + rand.nextInt(rad);
 		int user_y = y + rand.nextInt(rad);
-		
+
 		centerPoint = new Point(x, y);
 		userPoint = new Point(user_x, user_y);
 		selected = true;
-		
 
 		OvalShape oval = new OvalShape();
 		oval.resize(width, height);
@@ -57,7 +56,7 @@ public class CircleMinigame extends Minigame {
 	@Override
 	public void gameDraw(Canvas c) {
 		circle.draw(c);
-		
+
 		if (selected) {
 			c.drawBitmap(reticle, userPoint.x - (reticle.getWidth() / 2),
 					userPoint.y - (reticle.getHeight() / 2), null);
@@ -75,7 +74,9 @@ public class CircleMinigame extends Minigame {
 		double y = userPoint.y - centerPoint.y;
 		double dist = Math.abs(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
 		dist = dist / radius;
-		dist = Math.ceil(dist * MAX_SCORE);
+		dist = dist * MAX_SCORE;
+		if (dist > MAX_SCORE)
+			dist = MAX_SCORE;
 		scoreSubmitted = true;
 		return dist;
 	}
@@ -90,7 +91,7 @@ public class CircleMinigame extends Minigame {
 			selected = true;
 		}
 		return true;
-	}//asdf
+	}// asdf
 
 	public boolean onDoubleTap(MotionEvent e) {
 		double score = getScore();

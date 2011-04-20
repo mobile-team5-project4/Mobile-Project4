@@ -53,7 +53,7 @@ public class ScoreView extends TableLayout {
 
 			for (Double round : game) {
 				TextView tvScore = new TextView(context);
-				tvScore.setText(String.format("%.3f", round));
+				tvScore.setText(String.format("%.2f", round));
 				tvScore.setTextSize(12);
 				tvScore.setTextColor(Color.BLACK);
 
@@ -67,7 +67,7 @@ public class ScoreView extends TableLayout {
 
 			TextView tvAve = new TextView(context);
 			tvAve.setTextSize(12);
-			tvAve.setText(String.format("%.3f", ave));
+			tvAve.setText(String.format("%.2f", ave));
 			tvAve.setTextColor(Color.BLACK);
 			newRow.addView(tvAve);
 
@@ -91,7 +91,7 @@ public class ScoreView extends TableLayout {
 
 		TextView tvTotalScore = new TextView(context);
 		tvTotalScore.setTextSize(12);
-		tvTotalScore.setText(String.format("%.3f", score));
+		tvTotalScore.setText(String.format("%.2f", score));
 		tvTotalScore.setTextColor(Color.BLACK);
 		footer.addView(tvTotalScore);
 
