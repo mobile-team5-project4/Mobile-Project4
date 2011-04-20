@@ -157,4 +157,10 @@ public class BisectAngleMinigame extends Minigame {
 		return true;
 	}
 
+	@Override
+	public String getInstructions() {
+		return "Bisect the angle.";
+	}
+
+
 }

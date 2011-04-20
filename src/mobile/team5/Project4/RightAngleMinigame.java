@@ -132,4 +132,9 @@ public class RightAngleMinigame extends Minigame {
 		return true;
 	}
 
+	@Override
+	public String getInstructions() {
+		return "Form a right triangle.";
+	}
+
 }

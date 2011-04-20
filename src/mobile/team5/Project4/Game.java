@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Looper;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.GestureDetector.OnGestureListener;
@@ -76,7 +77,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 			score += ave;
 		}
 
-		Toast.makeText(context, "Your final score is: " + score.toString(),
+		Toast.makeText(_thread.class, "Your final score is: " + score.toString(),
 				Toast.LENGTH_LONG).show();
 	}
 
@@ -98,6 +99,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 			minigame = new ColorMinigame(context, getWidth(), getHeight());
 			break;
 		}
+
+		
+		Toast.makeText(context, minigame.getInstructions(), Toast.LENGTH_LONG)
+				.show();
+
 	}
 
 	public Double getScore() {

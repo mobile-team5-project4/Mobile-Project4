@@ -10,7 +10,7 @@ public abstract class Minigame {
 	protected Bitmap reticle, greenReticle;
 	protected int width, height;
 	protected Context con;
-	
+
 	static final int MAX_SCORE = 100;
 
 	Minigame(Context con, int width, int height) {
@@ -23,11 +23,14 @@ public abstract class Minigame {
 
 		greenReticle = BitmapFactory.decodeResource(con.getResources(),
 				R.drawable.greensquarereticle);
+
 	}
 
 	abstract public void gameDraw(Canvas c);
 
 	abstract public Double getScore();
+
+	abstract public String getInstructions();
 
 	abstract public boolean onSingleTapConfirmed(MotionEvent e);
 
