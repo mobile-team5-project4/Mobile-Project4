@@ -65,7 +65,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 
 				switchGame();
 			}
-		}, 3000);
+		}, 2000);
 	}
 
 	private void endGame() {

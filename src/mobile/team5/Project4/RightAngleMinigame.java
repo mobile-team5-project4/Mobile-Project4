@@ -43,13 +43,30 @@ public class RightAngleMinigame extends Minigame {
 		winningLine[0] = new Point(x, y);
 
 		x = rand.nextInt(2 * len) - len + x;
-		y = (int) -(Math.sqrt(Math.pow(len, 2)
-				- Math.pow(startLine[0].x - x, 2)) - startLine[0].y);
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
+
+		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
+				- Math.pow(startLine[0].x - x, 2))) - startLine[0].y);
+		if (y < 0)
+			y = 0;
+		else if (y > height)
+			y = height;
 		startLine[1] = new Point(x, y);
-		
-		x = rand.nextInt(2 * len) - len + x;
-		y = (int) -(Math.sqrt(Math.pow(len, 2)
-				- Math.pow(startLine[0].x - x, 2)) - startLine[0].y);
+
+		x = rand.nextInt(2 * len) - len + currentLine[0].x;
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
+		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
+				- Math.pow(startLine[0].x - x, 2))) - startLine[0].y);
+		if (y < 0)
+			y = 0;
+		else if (y > height)
+			y = height;
 		currentLine[1] = new Point(x, y);
 
 	}
@@ -64,10 +81,10 @@ public class RightAngleMinigame extends Minigame {
 		c.drawLine(startLine[0].x, startLine[0].y, startLine[1].x,
 				startLine[1].y, paint);
 
-		//if (pointSet)
+		// if (pointSet)
 		paint.setColor(Color.BLUE);
-		c.drawLine(currentLine[0].x, currentLine[0].y, 
-					currentLine[1].x, currentLine[1].y, paint);
+		c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
+				currentLine[1].y, paint);
 
 		if (submitted) {
 			paint.setColor(Color.GREEN);
@@ -104,7 +121,7 @@ public class RightAngleMinigame extends Minigame {
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
 		currentLine[1] = new Point((int) e.getX(), (int) e.getY());
-		//pointSet = true;
+		// pointSet = true;
 
 		return true;
 	}
@@ -131,10 +148,10 @@ public class RightAngleMinigame extends Minigame {
 				currentLine[1].y = 0;
 			else if (currentLine[1].y > height)
 				currentLine[1].y = height;
-		} /*else {
-		//	currentLine[1] = new Point((int) e1.getX(), (int) e1.getY());
-		//	pointSet = true;
-		} */
+		} /*
+		 * else { // currentLine[1] = new Point((int) e1.getX(), (int)
+		 * e1.getY()); // pointSet = true; }
+		 */
 		return true;
 	}
 

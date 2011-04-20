@@ -138,7 +138,6 @@ public class ColorMinigame extends Minigame {
 	}
 
 	private double compare(int chosen, int win) {
-		// TODO Needs Fixing
 		int cRed = (0x00FF0000 & chosen) >> 16;
 		int wRed = (0x00FF0000 & win) >> 16;
 		int cGreen = (0x0000FF00 & chosen) >> 8;
@@ -146,9 +145,9 @@ public class ColorMinigame extends Minigame {
 		int cBlue = (0x000000FF & chosen);
 		int wBlue = (0x000000FF & win);
 
-		double score = (double) Math.abs(cRed - wRed) / 255
-				+ Math.abs(cGreen - wGreen) / 255 + Math.abs(cBlue - wBlue)
-				/ 255;
+		double score = ((double) Math.abs(cRed - wRed) / 255
+				+ (double) Math.abs(cGreen - wGreen) / 255 + (double) Math
+				.abs(cBlue - wBlue) / 255) / 3;
 		return score * MAX_SCORE;
 	}
 

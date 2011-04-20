@@ -52,20 +52,36 @@ public class BisectAngleMinigame extends Minigame {
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line1[0].x - x, 2))) - line1[0].y);
 		line1[1] = new Point(x, y);
-		
+
 		x = rand.nextInt(2 * len) - len + x;
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line1[0].x - x, 2))) - line1[0].y);
+		if (y < 0)
+			y = 0;
+		else if (y > height)
+			y = height;
 		currentLine[1] = new Point(x, y);
 
 		if (line1[1].x < width / 2) {
-			x += rand.nextInt(maxLen - minLen) + minLen;
+			x = line1[1].x + rand.nextInt(maxLen - minLen) + minLen;
 		} else {
-			x -= rand.nextInt(maxLen - minLen) + minLen;
+			x = line1[1].x - rand.nextInt(maxLen - minLen) + minLen;
 		}
+		if (x < 0)
+			x = 0;
+		else if (x > width)
+			x = width;
 
 		y = (int) -(Math.sqrt(Math.abs(Math.pow(len, 2)
 				- Math.pow(line2[0].x - x, 2))) - line2[0].y);
+		if (y < 0)
+			y = 0;
+		else if (y > height)
+			y = height;
 		line2[1] = new Point(x, y);
 
 		slope1 = ((double) (line1[1].y - line1[0].y))
@@ -92,10 +108,10 @@ public class BisectAngleMinigame extends Minigame {
 		c.drawLine(line1[0].x, line1[0].y, line1[1].x, line1[1].y, paint);
 		c.drawLine(line2[0].x, line2[0].y, line2[1].x, line2[1].y, paint);
 
-		//if (pointSet)
+		// if (pointSet)
 		paint.setColor(Color.BLUE);
-		c.drawLine(currentLine[0].x, currentLine[0].y, 
-					currentLine[1].x, currentLine[1].y, paint);
+		c.drawLine(currentLine[0].x, currentLine[0].y, currentLine[1].x,
+				currentLine[1].y, paint);
 
 		if (submitted) {
 			paint.setColor(Color.GREEN);
@@ -121,7 +137,7 @@ public class BisectAngleMinigame extends Minigame {
 		difference = difference / (angle1 + angle2);
 		difference = difference * MAX_SCORE;
 		difference = Math.ceil(difference);
-		
+
 		double ab = getDistance(line1[0], line2[1]);
 		double bc = getDistance(line2[1], line2[1]);
 		double ca = getDistance(line1[1], line2[0]);
@@ -131,10 +147,11 @@ public class BisectAngleMinigame extends Minigame {
 			maxLength = bc;
 		if (ca > maxLength)
 			maxLength = ca;
-		int x = (int) (((bc * line1[0].x) + (ca * line2[1].x) + (ab * line1[1].x)) / (ab + bc + ca));
-		int y = (int) (((bc * line1[0].y) + (ca * line2[1].y) + (ab * line1[1].y)) / (ab + bc + ca));
+		int x = (int) (((bc * line1[0].x) + (ca * line2[1].x) + (ab * line1[1].x)) / (ab
+				+ bc + ca));
+		int y = (int) (((bc * line1[0].y) + (ca * line2[1].y) + (ab * line1[1].y)) / (ab
+				+ bc + ca));
 		winningLine[1] = new Point(x, y);
-		
 
 		submitted = true;
 		return difference;
@@ -181,6 +198,5 @@ public class BisectAngleMinigame extends Minigame {
 	public String getInstructions() {
 		return "Bisect the angle.";
 	}
-
 
 }

@@ -2,6 +2,7 @@ package mobile.team5.Project4;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class ScoreView extends TableLayout {
 		}
 
 		TableRow footer = new TableRow(context);
+
 		TextView tvTotal = new TextView(context);
 		tvTotal.setTextSize(12);
 		tvTotal.setText("Total");
@@ -85,7 +87,7 @@ public class ScoreView extends TableLayout {
 			TextView tvRound = new TextView(context);
 			tvRound.setTextSize(12);
 			tvRound.setText("");
-			header.addView(tvRound);
+			footer.addView(tvRound);
 		}
 
 		TextView tvTotalScore = new TextView(context);
